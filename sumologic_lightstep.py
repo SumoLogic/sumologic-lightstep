@@ -61,7 +61,7 @@ class SumoHTTPAdapter(HTTPAdapter):
 
 class LightstepExtractor:
     def __init__(self, project: str, config: dict):
-        self._base_url = "https://api.lightstep.com/public/v0.1/Sumologic/projects/"
+        self._base_url = f"https://api.lightstep.com/public/v0.1/{config['lightstep_organization']}/projects/"
         self._batch_size = config["batch_size"]
         self._config = config
         self._project = project
@@ -197,6 +197,7 @@ config_schema = Schema(
     {
         Required("sumo_http_url"): Url(),
         Required("lightstep_api_key"): str,
+        Required("lightstep_organization"): str,
         Required("global", default={}): global_config_schema,
         Required("targets"): All(Length(min=1), [target_config_schema]),
     }
@@ -226,6 +227,7 @@ def extract_data(config):
         scheduler_config = {
             "sumo_http_url": config["sumo_http_url"],
             "lightstep_api_key": config["lightstep_api_key"],
+            "lightstep_organization": config["lightstep_organization"],
         }
         scheduler_config.update(target_config)
         for k, v in config["global"].items():
