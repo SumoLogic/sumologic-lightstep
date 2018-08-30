@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name:  sumologic-lightstep
-        image: 224064240808.dkr.ecr.us-east-1.amazonaws.com/sumologic-lightstep:1.0.0
+        image: sumologic/sumologic-lightstep:1.0.0
         volumeMounts:
         - name: config-volume
           mountPath: /etc/sumo
