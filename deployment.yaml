@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sumologic-lightstep
+  labels:
+    app: sumologic-lightstep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sumologic-lightstep
+  template:
+    metadata:
+      labels:
+        app: sumologic-lightstep
+    spec:
+      containers:
+      - name:  sumologic-lightstep
+        image: 224064240808.dkr.ecr.us-east-1.amazonaws.com/sumologic-lightstep:1.0.0
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/sumo
+        env:
+          - name: CONFIG_PATH
+            value: "/etc/sumo/config.json"
+      volumes:
+      - name: config-volume
+        configMap:
+          name: sumologic-lightstep
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sumologic-lightstep
+data:
+  config.json: |
+    {
+      "sumo_http_url": "INSERT_SUMO_HTTP_URL",
+      "api_key": "INSERT_LIGHTSTEP_API_KEY",
+      "targets": [
+        {
+          "project": "INSERT_PROJECT_NAME",
+          "searches": ["INSERT_SEARCH_IDS"],
+          "percentiles": [50, 90, 99, 99.99],
+        }
+      ]
+    }
