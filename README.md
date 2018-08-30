@@ -15,7 +15,8 @@ This script can be run standalone or as a container.  In order to use the script
 ```json
 {
   "sumo_http_url": "INSERT_SUMO_HTTP_SOURCE_URL_HERE",
-  "api_key": "INSERT_LIGHTSTEP_API_KEY_HERE",
+  "lightstep_api_key": "INSERT_LIGHTSTEP_API_KEY_HERE",
+  "lightstep_organization": "INSERT_LIGHTSTEP_ORGANIZATION_HERE",
   "targets": [
     {
       "project": "PROJECT_NAME",
@@ -28,12 +29,13 @@ This script can be run standalone or as a container.  In order to use the script
 
 ### Config Properties
 
-| Key               | Type   | Description                                               | Required  | Default |
-| ---               | -----  | -----------                                               | --------  | ------- |
-| `sumo_http_url`   | String | This is the Sumo Logic HTTP URL to send the data to.      | Yes       | None    | 
-| `api_key`         | String | This is the Lightstep API Key    .                        | Yes       | None    | 
-| `global`          | {}     | This is the global settings that apply to all targets.    | No        | None    |
-| `targets`         | []     | A list of targets to scrape and send to Sumo Logic        | No        | None    |
+| Key                      | Type   | Description                                               | Required  | Default |
+| ---                      | -----  | -----------                                               | --------  | ------- |
+| `sumo_http_url`          | String | This is the Sumo Logic HTTP URL to send the data to.      | Yes       | None    | 
+| `lightstep_api_key`      | String | This is the Lightstep API Key.                            | Yes       | None    | 
+| `lightstep_organization` | String | This is the Lightstep Organization.                       | Yes       | None    | 
+| `global`                 | {}     | This is the global settings that apply to all targets.    | No        | None    |
+| `targets`                | []     | A list of targets to scrape and send to Sumo Logic        | No        | None    |
 
 ### Global Properties
 | Key                      | Type   | Description                                                                                  | Required  | Default |
